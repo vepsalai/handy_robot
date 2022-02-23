@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<robot name="handy robot">
+    <!-- START of Task 1: Slider joint -->
+    <link name="base_link">
+        <visual>
+        <origin rpy="0 0 0" xyz="0 0 0.25"/> <!--The Z coordinate is half of the lenght so that origin is at 0,0,0-->
+        <geometry>
+            <cylinder radius="0.05" length="0.5"/>
+        </geometry>
+        </visual>
+    </link>
+  
+    <link name="slider_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0.25"/>
+            <geometry>
+                <cylinder radius="0.03" length="0.5"/>
+            </geometry>
+        </visual>
+    </link>
+    
+    <joint name="slider_joint" type="prismatic">
+        <parent link="base_link"/>
+        <child link="slider_link"/>
+        <origin xyz="0 0 0.1" rpy="0 0 0"/>
+        <limit lower="0" upper="0.3" effort="0.1" velocity="0.005"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+    <!-- END of Task 1: Slider joint -->
+
+    <!-- START of Task 2: Elbow joint -->
+    <link name="arm_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0.25"/>
+            <geometry>
+                <cylinder radius="0.03" length="0.5"/>
+            </geometry>
+        </visual>
+    </link>
+    <link name="wrist_link">
+        <visual>
+            <origin rpy="1.57 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size="0.1 0.02 0.2"/>
+            </geometry>
+        </visual>
+    </link>
+    <joint name="elbow_joint" type="revolute">
+        <parent link="slider_link"/>
+        <child link="arm_link"/>
+        <origin xyz="0 0 0.5" rpy="0 0 0"/> <!--The Z coordinate is the lenght of the slider link to attach the elbow joint to the top of the link-->
+        <limit lower="0" upper="3.14" effort="0.1" velocity="0.005"/> <!--The limits are in radians, the upper limit is little over (3/4)*pi -->
+        <axis xyz="-1 0 0"/>
+    </joint>
+    <joint name="wrist_joint" type="fixed">
+        <parent link="arm_link"/>
+        <child link="wrist_link"/>
+        <origin xyz="0 0 0.5" rpy="0 0 0"/>
+    </joint>
+    <!-- END of Task 2: Elbow joint -->
+
+    <!-- START of Task 3: Pincher-->
+    <link name="pincher_upper_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0.1"/>
+            <geometry>
+                <box size="0.1 0.02 0.2"/>
+            </geometry>
+        </visual>
+    </link>
+    <link name="pincher_lower_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0.1"/>
+            <geometry>
+                <box size="0.1 0.02 0.2"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="pincher_upper_joint" type="revolute">
+        <parent link="wrist_link"/>
+        <child link="pincher_upper_link"/>
+        <origin xyz="0 0.1 0" rpy="0 0 0"/>
+        <limit lower="-1.57" upper="1.57" effort="0.1" velocity="0.005"/>
+        <axis xyz="-1 0 0"/>
+    </joint>
+
+    <joint name="pincher_lower_joint" type="revolute">
+        <parent link="wrist_link"/>
+        <child link="pincher_lower_link"/>
+        <origin xyz="0 -0.1 -0" rpy="0 0 0"/>
+        <limit lower="-1.57" upper="1.57" effort="0.1" velocity="0.005"/>
+        <axis xyz="-1 0 0"/>
+    </joint>
+
+    <!-- END of Task 3: Pincher -->
+  
+</robot>

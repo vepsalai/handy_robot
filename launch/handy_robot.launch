@@ -1,0 +1,15 @@
+<launch>
+    <arg name="model" default="$(find handy_robot)/urdf/handy_robot.urdf"/> 
+    <param name="robot_description" command="cat $(arg model)" />
+  
+    <!-- use GUI app to set joint values to see how the robot works -->
+    <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui"></node>
+    <!-- Combine joint values -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+  
+    <!--Use the RViz configuration of internal urdf tutorials of ROS because its great! -->
+    <arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz" />
+    <!-- Show in Rviz   -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+  
+  </launch>
