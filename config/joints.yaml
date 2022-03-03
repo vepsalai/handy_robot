@@ -1,2 +1,26 @@
-type: "joint_state_controller/JointStateController"
-publish_rate: 50
+handy_robot_controller:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  # effort Controllers ---------------------------------------
+  slider_joint_effort_controller:
+    type: effort_controllers/JointPositionController
+    joint: slider_joint
+    pid: {p: 1.0, i: 0.0, d: 0.0}
+  # To add more just add them here as the first one
+  elbow_joint_effort_controller:
+    type: effort_controllers/JointPositionController
+    joint: elbow_joint
+    pid: {p: 1.0, i: 0.0, d: 0.0}
+
+  pincher_lower_joint_effort_controller:
+    type: effort_controllers/JointPositionController
+    joint: pincher_lower_joint
+    pid: {p: 1.0, i: 0.0, d: 0.0}
+
+  pincher_upper_joint_effort_controller:
+    type: effort_controllers/JointPositionController
+    joint: pincher_upper_joint
+    pid: {p: 1.0, i: 0.0, d: 0.0}

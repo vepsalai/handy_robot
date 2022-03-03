@@ -44,7 +44,7 @@
         <parent link="base_link"/>
         <child link="slider_link"/>
         <origin xyz="0 0 0.1" rpy="0 0 0"/>
-        <limit lower="0" upper="0.3" effort="0.1" velocity="0.005"/>
+        <limit lower="0" upper="0.3" effort="1" velocity="0.005"/>
         <axis xyz="0 0 1"/>
     </joint>
     <!-- Slider transmission -->
@@ -54,7 +54,7 @@
           <mechanicalReduction>1</mechanicalReduction>
         </actuator>
         <joint name="slider_joint">
-          <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
       </transmission>
     <!-- END of Task 1: Slider joint -->
@@ -88,7 +88,7 @@
         <parent link="slider_link"/>
         <child link="arm_link"/>
         <origin xyz="0 0 0.5" rpy="0 0 0"/> <!--The Z coordinate is the lenght of the slider link to attach the elbow joint to the top of the link-->
-        <limit lower="0" upper="3.14" effort="0.1" velocity="0.005"/> <!--The limits are in radians, the upper limit is little over (3/4)*pi -->
+        <limit lower="0" upper="3.14" effort="1" velocity="0.005"/> <!--The limits are in radians, the upper limit is little over (3/4)*pi -->
         <axis xyz="-1 0 0"/>
     </joint>
     <joint name="wrist_joint" type="fixed">
@@ -103,7 +103,7 @@
           <mechanicalReduction>1</mechanicalReduction>
         </actuator>
         <joint name="elbow_joint">
-          <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
       </transmission>
     <!-- END of Task 2: Elbow joint -->
@@ -166,7 +166,7 @@
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
         <joint name="pincher_upper_joint">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
     </transmission>
     <transmission name="pincher_lower_trans">
@@ -175,7 +175,7 @@
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
         <joint name="pincher_lower_joint">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
     </transmission>
 
@@ -184,7 +184,7 @@
     <!-- Enable gazebo -->
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-          <robotNamespace>/</robotNamespace>
+          <robotNamespace>/handy_robot_controller</robotNamespace>
         </plugin>
     </gazebo>
     <gazebo reference="base_link">
